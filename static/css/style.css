@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+html {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: 'Roboto';
+}
+header {
+    background-color: #0d6efd;
+    color: #fff;
+    flex: none;
+    padding: 20px;
+}
+footer {
+    background-color: #6c757d;
+    color: #fff;
+    flex: none;
+    padding: 20px;
+}
+main {
+    flex: auto;
+    padding: 20px;
+}
