@@ -16,6 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import facepage.views as facepage
+import maincatalog.views as maincatalog
+import pages.views as pages
+
 urlpatterns = [
+    path('', facepage.get_page, name='main_page'),
+    path('catalog/', maincatalog.get_page, name='catalog_root'),
+    path('catalog/<dispatcher>', maincatalog.get_page, name='catalog_item'),
+    path('pages/', pages.get_page, name='sitemap'),
+    path('pages/<dispatcher>', pages.get_page, name='other_page'),
     path('admin/', admin.site.urls),
 ]
