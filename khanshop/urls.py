@@ -22,7 +22,7 @@ import pages.views as pages
 
 urlpatterns = [
     path('', facepage.get_page, name='main_page'),
-    path('catalog/', maincatalog.get_page, name='catalog_root'),
+    path('catalog/', maincatalog.get_root, name='catalog_root'),
     path('catalog/<dispatcher>', maincatalog.get_page, name='catalog_item'),
     path('pages/', pages.get_page, name='sitemap'),
     path('pages/<dispatcher>', pages.get_page, name='other_page'),

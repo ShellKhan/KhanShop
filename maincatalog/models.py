@@ -27,3 +27,20 @@ class Category(models.Model):
         verbose_name='показывается',
         default=True,
     )
+
+    @property
+    def is_visible(self):
+        if self.is_active:
+            if self.parentcategory:
+                return self.parentcategory.is_visible
+            else:
+                return True
+        return False
+
+    @property
+    def parent_list(self):
+        res = []
+        if self.parentcategory:
+            res = [self.parentcategory]
+            res.extend(self.parentcategory.parent_list)
+        return res
