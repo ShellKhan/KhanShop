@@ -20,4 +20,7 @@
 			</p>
 		{% endfor %}
 	{% endif %}
+	<p>
+		<a href="/catalog/">каталог</a>
+	</p>
 {% endblock %}

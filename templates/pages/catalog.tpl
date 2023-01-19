@@ -6,7 +6,7 @@
 	<h1>Catalog root</h1>
 	{% for cat in catlist %}
 		<p>
-			<a href="/catalog/{{ cat.urlname }}">{{ cat.name }}</a>
+			{{ cat.1|safe }}<a href="/catalog/{{ cat.0.urlname }}">{{ cat.0.name }}</a>
 		</p>
 	{% endfor %}
 {% endblock %}
