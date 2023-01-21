@@ -1,11 +1,6 @@
-from enum import Enum
-
 from django.db import models
 
-
-class TypeChoice(Enum):
-    TXT = "text"
-    FRM = "form"
+from khanshop.enums import TypeChoice
 
 
 # Create your models here.

@@ -17,7 +17,7 @@
 	<h1>{{ category.name }}</h1>
 	<p>{{ category.description }}</p>
 	{% if subcats %}
-		<h2>Подкатегории:</h2>
+		<h2>Подкатегории</h2>
 		<ul>
 			{% for cat in subcats %}
 				<li>
@@ -26,28 +26,36 @@
 			{% endfor %}
 		</ul>
 	{% endif %}
-	{% if goods %}
+	{% if products %}
 		<h2>Товары в категории {{ category.name }}</h2>
 		<div class="gridrow row">
-			{% for item in goods %}
+			{% for item in products %}
 				<div class="col-sm-6 col-md-4 col-lg-3 col-xxl-2">
 					<div class="card">
-						<div class="card-header text-end">
-							{{ item.category }}
+						<div class="card-header text-center">
+							{{ item.category.name }}
 						</div>
 						<div class="card-body">
 							<h5 class="card-title">{{ item.name }}</h5>
-							<div class="card-image">
-								<img src="" alt="{{ item.name }}">
-							</div>
-							<p class="card-text">{{ item.description }}</p>
-							<a class="card-link" href="{% url 'products:product' item.category.pk item.pk %}">На страницу товара</a>
-							<br>
-							<a class="btn btn-primary" href="{% url 'basket:add' item.pk %}">КУПИТЬ</a>
+							{% if item.image %}
+								<div class="card-image">
+									<img src="/media/{{ item.image }}" alt="{{ item.name }}">
+								</div>
+							{% endif %}
+							<p class="card-text">{{ item.short_desc }}</p>
+							<a class="card-link" href="#">На страницу товара</a>
+							<h3 class="text-center text-danger">{{ item.price }} &#x20bd;</h3>
+							<a class="btn btn-primary" href="#">КУПИТЬ</a>
+						</div>
+						<div class="card-footer text-center">
+							{{ item.status }}
 						</div>
 					</div>
 				</div>
 			{% endfor %}
 		</div>
+	{% endif %}
+	{% if not subcats and not products %}
+		<p>Это пустая категория</p>
 	{% endif %}
 {% endblock %}

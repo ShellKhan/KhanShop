@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
-from .models import Category
+from .models import Category, Product
 
 
 def get_ierarchy(item, step):
@@ -35,10 +35,12 @@ def get_page(request, dispatcher=None):
         raise Http404()
     context = {
         'category': category,
-        'goods': None,
-        'breadcrumbs': category.parent_list.reverse()
+        'breadcrumbs': reversed(category.parent_list)
     }
     subcats = Category.objects.filter(is_active=True, parentcategory=category)
     if subcats:
         context['subcats'] = subcats
+    products = Product.objects.filter(category_id=category)
+    if products:
+        context['products'] = products
     return render(request, 'pages/category.tpl', context)
