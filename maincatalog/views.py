@@ -35,7 +35,8 @@ def get_page(request, dispatcher=None):
         raise Http404()
     context = {
         'category': category,
-        'breadcrumbs': category.parent_list
+        'goods': None,
+        'breadcrumbs': category.parent_list.reverse()
     }
     subcats = Category.objects.filter(is_active=True, parentcategory=category)
     if subcats:

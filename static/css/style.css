@@ -35,3 +35,54 @@ main {
     flex: auto;
     padding: 20px;
 }
+.active a {
+    font-weight: bold;
+}
+.links-menu {
+    margin-bottom: 0;
+}
+.links-menu a {
+    color: #cfe2ff;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.links-menu a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+tfoot > tr:last-child > th {
+    border-bottom-width: 0;
+}
+.navbar-collapse {
+    margin-top: 20px;
+}
+.gridrow {
+    margin-bottom: var(--bs-gutter-x);
+    align-items: stretch;
+}
+.gridrow > * {
+    padding-bottom: var(--bs-gutter-x);
+}
+.gridrow .card {
+    height: 100%;
+}
+.gridrow .card-body {
+    display: flex;
+    flex-direction: column;
+}
+.gridrow .card-text {
+    flex: auto;
+}
+.invalid-feedback.nonfield {
+    display: block;
+}
+
+
+
+@media (min-width: 992px) {
+    .navbar-collapse {
+        margin-top: 0;
+    }
+}
+
+
