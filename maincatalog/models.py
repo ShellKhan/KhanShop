@@ -46,6 +46,7 @@ class Category(models.Model):
             res = [self.parentcategory]
             res.extend(self.parentcategory.parent_list)
         return res
+# переделываем delete()
 
 
 class Product(models.Model):
@@ -87,3 +88,5 @@ class Product(models.Model):
         max_length=100,
         choices=[(tag, tag.value) for tag in StatusChoice],
     )
+# переделываем __init__() или добавляем @property с параметрами, чтобы
+# генерировались картинки заданного размера
