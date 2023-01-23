@@ -73,6 +73,8 @@ class Category(models.Model):
                         self.name)
                 )
         super().delete(**kwargs)
+# для группового удаления надо переопределить метод в классе для кверисета
+# (методичка "Джанго инструменты оптимизации 4")
 
 
 class Product(models.Model):
