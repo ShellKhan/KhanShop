@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import ProtectedError
 
 from khanshop.enums import StatusChoice
 
@@ -22,8 +23,9 @@ class Category(models.Model):
     )
     parentcategory = models.ForeignKey(
         'Category',
-        on_delete=models.SET_NULL,
         null=True,
+        on_delete=models.SET_NULL,
+        verbose_name='родительская категория',
     )
     is_active = models.BooleanField(
         verbose_name='показывается',
@@ -46,34 +48,54 @@ class Category(models.Model):
             res = [self.parentcategory]
             res.extend(self.parentcategory.parent_list)
         return res
-# переделываем delete()
+
+    def delete(self, new_link=None, **kwargs):
+        if new_link:
+            new_category = Category.objects.get(pk=new_link)
+        elif self.parentcategory:
+            new_category = self.parentcategory
+        else:
+            new_category = None
+        subcats = Category.objects.filter(parentcategory=self)
+        if subcats:
+            for subcat in subcats:
+                subcat.parentcategory = new_category
+                subcat.save()
+        products = Product.objects.filter(category=self)
+        if products:
+            if new_category:
+                for product in products:
+                    product.category = new_category
+                    product.save()
+            else:
+                raise ProtectedError(
+                    "%s object can't be deleted because it isn`t empty" % (
+                        self.name)
+                )
+        super().delete(**kwargs)
 
 
 class Product(models.Model):
     category = models.ForeignKey(
         Category,
-        on_delete=models.PROTECT
+        on_delete=models.CASCADE,
+        verbose_name='категория',
     )
     name = models.CharField(
-        verbose_name='имя продукта',
-        max_length=128
-    )
-    image = models.ImageField(
-        upload_to='products_images',
-        blank=True,
-        null=True,
+        verbose_name='название',
+        max_length=200
     )
     short_desc = models.CharField(
-        verbose_name='краткое описание продукта',
-        max_length=300,
+        verbose_name='краткое описание',
+        max_length=400,
         blank=True
     )
     description = models.TextField(
-        verbose_name='описание продукта',
+        verbose_name='подробное описание',
         blank=True
     )
     price = models.DecimalField(
-        verbose_name='цена продукта',
+        verbose_name='цена',
         max_digits=8,
         decimal_places=0,
         null=True,
@@ -84,9 +106,9 @@ class Product(models.Model):
         default=0
     )
     status = models.CharField(
-        verbose_name='тип',
+        verbose_name='статус',
         max_length=100,
         choices=[(tag, tag.value) for tag in StatusChoice],
     )
-# переделываем __init__() или добавляем @property с параметрами, чтобы
-# генерировались картинки заданного размера
+# убираем поле с картинкой, делаем класс для картинок с генерацией картинки
+# нужного размера по параметрам

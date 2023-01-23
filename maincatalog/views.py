@@ -44,3 +44,5 @@ def get_page(request, dispatcher=None):
     if products:
         context['products'] = products
     return render(request, 'pages/category.tpl', context)
+
+

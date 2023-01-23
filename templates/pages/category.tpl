@@ -37,11 +37,11 @@
 						</div>
 						<div class="card-body">
 							<h5 class="card-title">{{ item.name }}</h5>
-							{% if item.image %}
+							{# if item.image %}
 								<div class="card-image">
 									<img src="/media/{{ item.image }}" alt="{{ item.name }}">
 								</div>
-							{% endif %}
+							{% endif #}
 							<p class="card-text">{{ item.short_desc }}</p>
 							<a class="card-link" href="#">На страницу товара</a>
 							<h3 class="text-center text-danger">{{ item.price }} &#x20bd;</h3>
