@@ -5,7 +5,15 @@ from khanshop.enums import StatusChoice
 
 
 # Create your models here.
+class CategoryQuerySet(models.QuerySet):
+    def delete(self):
+        for item in self:
+            print(item.name, item.parentcategory)
+            item.delete()
+
+
 class Category(models.Model):
+    objects = CategoryQuerySet.as_manager()
     name = models.CharField(
         verbose_name='название',
         max_length=200,
@@ -73,8 +81,6 @@ class Category(models.Model):
                         self.name)
                 )
         super().delete(**kwargs)
-# для группового удаления надо переопределить метод в классе для кверисета
-# (методичка "Джанго инструменты оптимизации 4")
 
 
 class Product(models.Model):
@@ -112,5 +118,22 @@ class Product(models.Model):
         max_length=100,
         choices=[(tag, tag.value) for tag in StatusChoice],
     )
-# убираем поле с картинкой, делаем класс для картинок с генерацией картинки
-# нужного размера по параметрам
+
+
+# потом перекинем в отдельное приложение и докручивать будем в нем
+class ProductPicture(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='продукт',
+    )
+    short_desc = models.TextField(
+        verbose_name='описание',
+        max_length=50,
+        blank=True,
+    )
+    image = models.ImageField(
+        upload_to='uploads/',
+        verbose_name='изображение',
+        blank=True,
+    )
