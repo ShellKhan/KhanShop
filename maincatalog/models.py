@@ -40,6 +40,13 @@ class Category(models.Model):
         default=True,
     )
 
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return self.name
+
     @property
     def is_visible(self):
         if self.is_active:
@@ -118,6 +125,17 @@ class Product(models.Model):
         max_length=100,
         choices=[(tag, tag.value) for tag in StatusChoice],
     )
+    is_active = models.BooleanField(
+        verbose_name='показывается',
+        default=True,
+    )
+
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
+
+    def __str__(self):
+        return f'{self.name} {self.category}'
 
 
 # потом перекинем в отдельное приложение и докручивать будем в нем
@@ -137,3 +155,15 @@ class ProductPicture(models.Model):
         verbose_name='изображение',
         blank=True,
     )
+    is_main = models.BooleanField(
+        verbose_name='основное',
+        default=False,
+    )
+    is_active = models.BooleanField(
+        verbose_name='показывается',
+        default=True,
+    )
+
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
