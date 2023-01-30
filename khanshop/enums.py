@@ -1,14 +1,14 @@
-from enum import Enum
+from django.db import models
 
 
-class TypeChoice(Enum):
-    TXT = "text"
-    FRM = "form"
+class TypeChoice(models.TextChoices):
+    TXT = 'TXT', 'text'
+    FRM = 'FRM', 'form'
 
 
-class StatusChoice(Enum):
-    YES = "в наличии"
-    LIM = "количество ограничено"
-    END = "нет в наличии"
-    ASK = "под заказ"
-    DEL = "снято с производства"
+class StatusChoice(models.TextChoices):
+    YES = 'YES', 'в наличии'
+    LIM = 'LIM', 'количество ограничено'
+    END = 'END', 'нет в наличии'
+    ASK = 'ASK', 'под заказ'
+    DEL = 'DEL', 'снято с производства'

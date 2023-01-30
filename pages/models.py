@@ -16,10 +16,10 @@ class Page(models.Model):
         unique=True,
         blank=True,
     )
-    type = models.CharField(  # это не работает, надо разбираться
+    type = models.CharField(
         verbose_name='тип',
-        max_length=4,
-        choices=[(tag, tag.value) for tag in TypeChoice],
+        max_length=3,
+        choices=TypeChoice.choices,
     )
     description = models.TextField(
         verbose_name='описание',

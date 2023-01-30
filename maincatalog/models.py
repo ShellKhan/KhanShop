@@ -114,10 +114,10 @@ class Product(models.Model):
         verbose_name='количество на складе',
         default=0
     )
-    status = models.CharField(  # это не работает, надо разбираться
+    status = models.CharField(
         verbose_name='статус',
         max_length=3,
-        choices=[(tag, tag.value) for tag in StatusChoice],
+        choices=StatusChoice.choices,
     )
     is_active = models.BooleanField(
         verbose_name='показывается',
