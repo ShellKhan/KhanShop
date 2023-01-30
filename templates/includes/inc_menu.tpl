@@ -11,7 +11,7 @@
                 <a class="nav-link" aria-current="page" href="/catalog/">Каталог</a>
             </li>
             <li class="nav-item me-lg-4">
-                <a class="nav-link" aria-current="page" href="/pages/">Статьи</a>
+                <a class="nav-link" aria-current="page" href="/pages/">Другие страницы</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/">Админка</a>

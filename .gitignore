@@ -162,3 +162,4 @@ cython_debug/
 
 # not for git
 media/uploads/
+media/gallery/

@@ -37,6 +37,11 @@
 						</div>
 						<div class="card-body">
 							<h5 class="card-title">{{ item.name }}</h5>
+							{% if item.main_image %}
+								<div class="card-image">
+									<img src="/media/{{ item.main_image.get_catalog_image }}" alt="{{ item.main_image.short_desc }}">
+								</div>
+							{% endif %}
 							<p class="card-text">{{ item.short_desc }}</p>
 							<a class="card-link" href="/products/{{ item.pk }}">На страницу товара</a>
 							<h3 class="text-center text-danger">{{ item.price }} &#x20bd;</h3>

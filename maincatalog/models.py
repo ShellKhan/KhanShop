@@ -132,14 +132,13 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name} ({self.category})'
 
-    def get_catalog_image(self):
-        return None
+    @property
+    def all_images(self):
+        return self.get_images.filter(is_active=True)
 
-    def get_main_image(self):
-        return None
-
-    def get_gallery_image(self):
-        return None
-
-    def get_big_image(self):
-        return None
+    @property
+    def main_image(self):
+        main_image = None
+        if gallery := self.all_images:
+            main_image = gallery.get(is_main=True) or gallery[0]
+        return main_image
