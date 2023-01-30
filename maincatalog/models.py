@@ -132,13 +132,19 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name} ({self.category})'
 
+    # Надо переделать, не устраивают меня такие статусы
+    @property
+    def get_status(self):
+        return StatusChoice[self.status]
+
     @property
     def all_images(self):
         return self.get_images.filter(is_active=True)
 
     @property
     def main_image(self):
-        main_image = None
-        if gallery := self.all_images:
-            main_image = gallery.get(is_main=True) or gallery[0]
-        return main_image
+        return (
+            gallery.filter(is_main=True).first() or gallery.first()
+            if (gallery := self.all_images)
+            else None
+        )

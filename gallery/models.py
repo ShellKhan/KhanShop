@@ -1,6 +1,6 @@
 from django.db import models
 
-from khanshop.customization import CATALOG_SIZE_W, CATALOG_SIZE_H
+from khanshop import customization
 from .utils import make_sized_image
 from maincatalog.models import Product
 
@@ -41,16 +41,20 @@ class ProductPicture(models.Model):
 
     @property
     def get_catalog_image(self):
-        return make_sized_image(self, CATALOG_SIZE_W, CATALOG_SIZE_H)
+        return make_sized_image(self, customization.CATALOG_SIZE_W,
+                                customization.CATALOG_SIZE_H)
 
     @property
     def get_gallery_image(self):
-        return make_sized_image(self, GALLERY_SIZE_W, GALLERY_SIZE_H)
+        return make_sized_image(self, customization.GALLERY_SIZE_W,
+                                customization.GALLERY_SIZE_H)
 
     @property
     def get_main_image(self):
-        return make_sized_image(self, MAIN_SIZE_W, MAIN_SIZE_H)
+        return make_sized_image(self, customization.MAIN_SIZE_W,
+                                customization.MAIN_SIZE_H)
 
     @property
     def get_big_image(self):
-        return make_sized_image(self, BIG_SIZE_W, BIG_SIZE_H)
+        return make_sized_image(self, customization.BIG_SIZE_W,
+                                customization.BIG_SIZE_H)

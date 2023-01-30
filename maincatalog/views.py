@@ -51,13 +51,9 @@ def get_product(request, pk):
     if not product.is_active or not product.category.is_visible:
         raise Http404()
     breadcrumbs = [product.category] + product.category.parent_list
-    main_image = None
-    if gallery := product.get_images.filter(is_active=True):
-        main_image = gallery.get(is_main=True) or gallery.first()
     context = {
         'breadcrumbs': reversed(breadcrumbs),
         'product': product,
-        'gallery': gallery,
-        'main_image': main_image,
+        'gallery': product.all_images,
     }
     return render(request, 'pages/product.tpl', context)

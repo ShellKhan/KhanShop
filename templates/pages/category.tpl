@@ -48,7 +48,7 @@
 							<a class="btn btn-primary" href="#">КУПИТЬ</a>
 						</div>
 						<div class="card-footer text-center">
-							{{ item.status }}
+							{{ item.get_status }}
 						</div>
 					</div>
 				</div>
