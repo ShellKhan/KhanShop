@@ -16,7 +16,7 @@ class Page(models.Model):
         unique=True,
         blank=True,
     )
-    type = models.CharField(
+    type = models.CharField(  # это не работает, надо разбираться
         verbose_name='тип',
         max_length=4,
         choices=[(tag, tag.value) for tag in TypeChoice],

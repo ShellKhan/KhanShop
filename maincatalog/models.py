@@ -50,10 +50,8 @@ class Category(models.Model):
     @property
     def is_visible(self):
         if self.is_active:
-            if self.parentcategory:
-                return self.parentcategory.is_visible
-            else:
-                return True
+            return self.parentcategory.is_visible if self.parentcategory else \
+                True
         return False
 
     @property
@@ -71,22 +69,18 @@ class Category(models.Model):
             new_category = self.parentcategory
         else:
             new_category = None
-        subcats = Category.objects.filter(parentcategory=self)
-        if subcats:
+        if products := Product.objects.filter(category=self):
+            if not new_category:
+                raise ProtectedError(
+                    f"{self} object can't be deleted because it isn`t empty"
+                )
+            for product in products:
+                product.category = new_category
+                product.save()
+        if subcats := Category.objects.filter(parentcategory=self):
             for subcat in subcats:
                 subcat.parentcategory = new_category
                 subcat.save()
-        products = Product.objects.filter(category=self)
-        if products:
-            if new_category:
-                for product in products:
-                    product.category = new_category
-                    product.save()
-            else:
-                raise ProtectedError(
-                    "%s object can't be deleted because it isn`t empty" % (
-                        self.name)
-                )
         super().delete(**kwargs)
 
 
@@ -120,9 +114,9 @@ class Product(models.Model):
         verbose_name='количество на складе',
         default=0
     )
-    status = models.CharField(
+    status = models.CharField(  # это не работает, надо разбираться
         verbose_name='статус',
-        max_length=100,
+        max_length=3,
         choices=[(tag, tag.value) for tag in StatusChoice],
     )
     is_active = models.BooleanField(
@@ -135,7 +129,7 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
 
     def __str__(self):
-        return f'{self.name} {self.category}'
+        return f'{self.name} ({self.category})'
 
 
 # потом перекинем в отдельное приложение и докручивать будем в нем
