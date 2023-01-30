@@ -38,7 +38,7 @@
 						<div class="card-body">
 							<h5 class="card-title">{{ item.name }}</h5>
 							<p class="card-text">{{ item.short_desc }}</p>
-							<a class="card-link" href="#">На страницу товара</a>
+							<a class="card-link" href="/products/{{ item.pk }}">На страницу товара</a>
 							<h3 class="text-center text-danger">{{ item.price }} &#x20bd;</h3>
 							<a class="btn btn-primary" href="#">КУПИТЬ</a>
 						</div>

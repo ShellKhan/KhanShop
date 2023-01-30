@@ -72,7 +72,8 @@ class Category(models.Model):
         if products := Product.objects.filter(category=self):
             if not new_category:
                 raise ProtectedError(
-                    f"{self} object can't be deleted because it isn`t empty"
+                    f"{self} object can't be deleted because it isn`t empty",
+                    self,
                 )
             for product in products:
                 product.category = new_category
@@ -131,33 +132,14 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name} ({self.category})'
 
+    def get_catalog_image(self):
+        return None
 
-# потом перекинем в отдельное приложение и докручивать будем в нем
-class ProductPicture(models.Model):
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        verbose_name='продукт',
-    )
-    short_desc = models.TextField(
-        verbose_name='описание',
-        max_length=50,
-        blank=True,
-    )
-    image = models.ImageField(
-        upload_to='uploads/',
-        verbose_name='изображение',
-        blank=True,
-    )
-    is_main = models.BooleanField(
-        verbose_name='основное',
-        default=False,
-    )
-    is_active = models.BooleanField(
-        verbose_name='показывается',
-        default=True,
-    )
+    def get_main_image(self):
+        return None
 
-    class Meta:
-        verbose_name = 'Изображение'
-        verbose_name_plural = 'Изображения'
+    def get_gallery_image(self):
+        return None
+
+    def get_big_image(self):
+        return None

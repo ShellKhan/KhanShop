@@ -27,6 +27,8 @@ urlpatterns = [
     path('', facepage.get_page, name='main_page'),
     path('catalog/', maincatalog.get_root, name='catalog_root'),
     path('catalog/<dispatcher>', maincatalog.get_page, name='catalog_item'),
+    path('products/', maincatalog.get_root, name='catalog_root'),
+    path('products/<int:pk>', maincatalog.get_product, name='product'),
     path('pages/', pages.get_page, name='sitemap'),
     path('pages/<dispatcher>', pages.get_page, name='other_page'),
     path('admin/', admin.site.urls),
