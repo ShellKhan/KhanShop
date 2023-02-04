@@ -10,7 +10,7 @@ class Page(models.Model):
         max_length=200,
         unique=True,
     )
-    urlname = models.CharField(
+    urlname = models.SlugField(
         verbose_name='человекочитаемый url',
         max_length=300,
         unique=True,

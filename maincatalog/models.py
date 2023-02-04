@@ -8,7 +8,6 @@ from khanshop.enums import StatusChoice
 class CategoryQuerySet(models.QuerySet):
     def delete(self):
         for item in self:
-            print(item.name, item.parentcategory)
             item.delete()
 
 
@@ -19,7 +18,7 @@ class Category(models.Model):
         max_length=200,
         unique=True
     )
-    urlname = models.CharField(
+    urlname = models.SlugField(
         verbose_name='человекочитаемый url',
         max_length=300,
         unique=True,
@@ -106,8 +105,8 @@ class Product(models.Model):
     )
     price = models.DecimalField(
         verbose_name='цена',
-        max_digits=8,
-        decimal_places=0,
+        max_digits=9,
+        decimal_places=2,
         null=True,
         default=None
     )
