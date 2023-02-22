@@ -20,7 +20,7 @@ def create_sized_image(source, size_w, size_h, imgurl):
     old_w, old_h = img.size
     new_w = size_w
     new_h = int(new_w * old_h / old_w)
-    if size_h > new_h:
+    if size_h < new_h:
         new_h = size_h
         new_w = int(new_h * old_w / old_h)
     img = img.resize((new_w, new_h), Image.ANTIALIAS)
