@@ -131,10 +131,9 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name} ({self.category})'
 
-    # Надо переделать, не устраивают меня такие статусы
     @property
     def get_status(self):
-        return StatusChoice[self.status]
+        return self.get_status_display()
 
     @property
     def all_images(self):
