@@ -19,18 +19,22 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-import facepage.views as facepage
-import maincatalog.views as maincatalog
-import pages.views as pages
+import facepage.views as fp
+import maincatalog.views as mc
+import pages.views as pg
+import userpanel.views as up
 
 urlpatterns = [
-    path('', facepage.get_page, name='main_page'),
-    path('catalog/', maincatalog.get_root, name='catalog_root'),
-    path('catalog/<dispatcher>', maincatalog.get_page, name='catalog_item'),
-    path('products/', maincatalog.get_root, name='catalog_root'),
-    path('products/<int:pk>', maincatalog.get_product, name='product'),
-    path('pages/', pages.get_page, name='sitemap'),
-    path('pages/<dispatcher>', pages.get_page, name='other_page'),
+    path('', fp.get_page, name='main_page'),
+    path('catalog/', mc.get_root, name='catalog_root'),
+    path('catalog/<dispatcher>', mc.get_page, name='catalog_item'),
+    path('products/', mc.get_root, name='catalog_root'),
+    path('products/<int:pk>', mc.get_product, name='product'),
+    path('pages/', pg.get_page, name='sitemap'),
+    path('pages/<dispatcher>', pg.get_page, name='other_page'),
+    path('login/', up.login, name='login'),
+    path('logout/', up.logout, name='logout'),
+    # временно используется стандартная админка
     path('admin/', admin.site.urls),
 ]
 if settings.DEBUG:

@@ -13,7 +13,13 @@
             <li class="nav-item me-lg-4">
                 <a class="nav-link" aria-current="page" href="/pages/">Другие страницы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item me-lg-4">
+                <a class="nav-link" href="/login/">Вход</a>
+            </li>
+            <li class="nav-item me-lg-4">
+                <a class="nav-link" href="/logout/">Выход</a>
+            </li>
+            <li class="nav-item me-lg-4">
                 <a class="nav-link" href="/admin/">Админка</a>
             </li>
         </ul>
