@@ -36,6 +36,7 @@ urlpatterns = [
     path('logout/', up.logout, name='logout'),
     # временно используется стандартная админка
     path('admin/', admin.site.urls),
+    path('<dispatcher>', pg.get_page_by_shortcut, name='other_page'),
 ]
 if settings.DEBUG:
     urlpatterns += static(
