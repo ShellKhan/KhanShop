@@ -30,13 +30,15 @@ urlpatterns = [
     path('catalog/<dispatcher>', mc.get_page, name='catalog_item'),
     path('products/', mc.get_root, name='catalog_root'),
     path('products/<int:pk>', mc.get_product, name='product'),
-    path('pages/', pg.get_page, name='sitemap'),
-    path('pages/<dispatcher>', pg.get_page, name='other_page'),
+    # временное решение для логина и разлогина
     path('login/', up.login, name='login'),
     path('logout/', up.logout, name='logout'),
     # временно используется стандартная админка
     path('admin/', admin.site.urls),
-    path('<dispatcher>', pg.get_page_by_shortcut, name='other_page'),
+    path('pages/', pg.get_page, name='sitemap'),
+    path('pages/<dispatcher>', pg.get_page, name='other_page'),
+    # временное решение для коротких ссылок на некоторые страницы
+    path('<str:dispatcher>', pg.get_page_by_shortcut, name='other_page'),
 ]
 if settings.DEBUG:
     urlpatterns += static(
