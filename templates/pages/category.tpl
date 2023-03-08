@@ -16,6 +16,9 @@
 	</nav>
 	<h1>{{ category.name }}</h1>
 	<p>{{ category.description }}</p>
+	{% if category.image %}
+		<img class="rounded" src="/media/{{ category.image.get_catalog_image }}" alt="{{ category.image.short_desc }}">
+	{% endif %}
 	{% if subcats %}
 		<h2>Подкатегории</h2>
 		<ul>
